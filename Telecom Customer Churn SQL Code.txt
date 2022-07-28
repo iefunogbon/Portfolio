@@ -60,6 +60,16 @@ ON TC.Zip_Code = TZP.Zip_Code
 WHERE  TC.Customer_Status = 'Churned' 
 GROUP BY TC.Churn_Category ;
 
+
+--6. To view the category why customers churned
+SELECT TC.Churn_Category,
+		COUNT(TC.Churn_Category) AS Count
+FROM telecom_customer TC
+INNER JOIN telecom_zipcode_population TZP 
+ON TC.Zip_Code = TZP.Zip_Code
+WHERE TC.Churn_Category IS NOT NULL
+GROUP BY TC.Churn_Category ;
+
 --7. To view the Offer rendered
 SELECT TC.Offer,
 		COUNT(TC.Offer) AS Count_Offer
