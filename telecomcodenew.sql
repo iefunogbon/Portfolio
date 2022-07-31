@@ -95,7 +95,25 @@ INNER JOIN telecom_zipcode_population TZP
 ON TC.Zip_Code = TZP.Zip_Code
 GROUP BY TC.Gender;
 
+--to view the total population of all customer
 
+SELECT TC.Customer_ID, 
+SUM(TZP.Population) AS Total_Population
+FROM telecom_customer TC
+INNER JOIN telecom_zipcode_population TZP 
+ON TC.Zip_Code = TZP.Zip_Code
+GROUP BY TC.Customer_ID
+ORDER BY Total_Population DESC;
+
+-- To view the total population  and city of churned customers
+SELECT TC.Customer_ID,
+SUM(TZP.Population) AS Total_Population
+FROM telecom_customer TC
+INNER JOIN telecom_zipcode_population TZP 
+ON TC.Zip_Code = TZP.Zip_Code
+WHERE Customer_Status = 'Churned'
+GROUP BY TC.Customer_ID
+ORDER BY Total_Population DESC;
 
 
 -- To view the number of customer, city and grand total in descending order
