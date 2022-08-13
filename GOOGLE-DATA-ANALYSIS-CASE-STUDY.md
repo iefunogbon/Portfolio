@@ -5,11 +5,11 @@ August 11, 2022
 
 ## Bellabeat: How can a wellness technology company play it smart?
 
-**In this case study, I’ll demonstrate the steps to solve the Bellabeat
-Wellness company case study using Excel Spreadsheet, and R. **
+In this case study, I’ll demonstrate the steps to solve the Bellabeat
+Wellness company case study using Excel Spreadsheet, and R.
 
 The following six phase of data analysis process is used for the case
-study: \*\* Ask, Prepare, Process, Analyze, Share, and Act.\*\*
+study: Ask, Prepare, Process, Analyze, Share, and Act.
 
 #### **Table of Content:**
 
