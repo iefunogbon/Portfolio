@@ -2,12 +2,14 @@
 title: "Google Case Study: Wellness Technology Company"
 author: "Idowu Efunogbon"
 date: "August 11, 2022"
-output: rmarkdown::github_document
+output: html_document
+keep_md: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
 
 
 ## Bellabeat: How can a wellness technology company play it smart?
