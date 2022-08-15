@@ -2,10 +2,11 @@
 title: "Google Case Study: Wellness Technology Company"
 author: "Idowu Efunogbon"
 date: "August 11, 2022"
-output: 
-github_document:
-keep_md: true
+output: rmarkdown::github_document
 ---
+```{r}
+
+```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
