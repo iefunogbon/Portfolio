@@ -6,7 +6,7 @@ August 11, 2022
 # you do not need this unless you also commit images to your Github repository
 
 gitsubdir \<- paste(tail(strsplit(getwd(),“/”)\[\[1\]\],1),“/”,sep=““)
-gitrep \<-”<https://github.com/mpiktas/myliuduomenis.lt>” gitbranch \<-
+gitrep \<-”<https://github.com/iefunogbon/Portfolio>” gitbranch \<-
 “master”
 opts_knit$set(base.url=paste(gitrep,“raw”,gitbranch,gitsubdir,sep=“/”))
 \`\`\`\`
