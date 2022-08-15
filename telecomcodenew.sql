@@ -298,7 +298,7 @@ GROUP BY TC.Internet_Service;
 
 
 
---22. whats the average monthlycharge of customers with internet service?
+-- whats the average monthlycharge of customers with internet service?
 
 select AVG(TC.Monthly_Charge) as Avg_Month_Charge,
 CASE WHEN  (TC.Internet_Service) = 1 THEN 'YES' ELSE 'NO' END AS Internet_Service
@@ -473,6 +473,24 @@ SELECT
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code;
 
+SELECT 
+ SUM(TC.Tenure_in_Months) As AVG_Tenure_Month
+ FROM telecom_customer TC
+INNER JOIN telecom_zipcode_population TZP 
+ON TC.Zip_Code = TZP.Zip_Code;
+
+
+-- To calcualte the Tenure in Months of Customers?
+SELECT  TC.Customer_Status AS Customer_Status,
+Contract,
+ SUM (TC.Tenure_in_Months) As Total_Tenure_Month
+ FROM telecom_customer TC
+INNER JOIN telecom_zipcode_population TZP 
+ON TC.Zip_Code = TZP.Zip_Code
+GROUP BY Customer_Status, Contract
+ORDER BY Customer_Status;
+
+
 ----- To view the Average  Monthly Charges of Customers?
 SELECT 
  ROUND (AVG(TC.Monthly_Charge),0) As Avg_Monthly_Charge
@@ -525,4 +543,34 @@ WHERE TC.Contract IS NOT NULL AND Customer_Status = 'Churned'
 GROUP BY TC.Offer; 
 
 
+
+--To view the customer status by Age?
+SELECT TC.Customer_Status, Age, COUNT(Age) AS Count_Age,
+CASE 
+    WHEN  (TC.Age) <  20 THEN 'Below 20'
+    WHEN (TC.Age)  <=30 THEN '20 - 30'
+    WHEN (TC.Age)  <=40 THEN '30 - 40'
+    WHEN (TC.Age)  <=50 THEN '40 -50'
+    WHEN (TC.Age)  <=60 THEN '50 -60'
+    WHEN (TC.Age)  <=70 THEN '60 -70'
+ELSE '70+' 
+END AS Age_Customers
+FROM telecom_customer TC
+INNER JOIN telecom_zipcode_population TZP 
+ON TC.Zip_Code = TZP.Zip_Code
+GROUP BY TC.Customer_Status, Age
+
+
+
+
+
+
+--To view the number of referrals?
+select  Customer_Status,
+SUM(Number_of_Referrals) AS Total_Referrals
+FROM telecom_customer TC
+INNER JOIN telecom_zipcode_population TZP 
+ON TC.Zip_Code = TZP.Zip_Code 
+GROUP BY Customer_Status
+ORDER BY Customer_Status DESC;
 
