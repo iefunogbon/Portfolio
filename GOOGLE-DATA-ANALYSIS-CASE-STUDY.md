@@ -3,6 +3,14 @@ Google Case Study: Wellness Technology Company
 Idowu Efunogbon
 August 11, 2022
 
+# you do not need this unless you also commit images to your Github repository
+
+gitsubdir \<- paste(tail(strsplit(getwd(),“/”)\[\[1\]\],1),“/”,sep=““)
+gitrep \<-”<https://github.com/mpiktas/myliuduomenis.lt>” gitbranch \<-
+“master”
+opts_knit$set(base.url=paste(gitrep,“raw”,gitbranch,gitsubdir,sep=“/”))
+\`\`\`\`
+
 ## Bellabeat: How can a wellness technology company play it smart?
 
 In this case study, I’ll demonstrate the steps to solve the Bellabeat
