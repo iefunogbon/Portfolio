@@ -60,6 +60,18 @@ WHERE  TC.Customer_Status = 'Churned'
 GROUP BY TC.Churn_Category ;
 
 
+
+
+-- To view the category why customers churned
+SELECT TC.Churn_Category, TC.Churn_Reason,
+		COUNT(TC.Churn_Category) AS Count
+FROM telecom_customer TC
+INNER JOIN telecom_zipcode_population TZP 
+ON TC.Zip_Code = TZP.Zip_Code
+WHERE  TC.Customer_Status = 'Churned' 
+GROUP BY TC.Churn_Category, TC.Churn_Reason;
+
+
 -- To view the category why customers churned
 SELECT TC.Churn_Category,
 		COUNT(TC.Churn_Category) AS Count
@@ -244,7 +256,7 @@ ON TC.Zip_Code = TZP.Zip_Code
 WHERE TC.Customer_Status = 'joined'
 GROUP BY TC.Married;
 
---17. Types of Married customers that  churned  the telecom?
+-- Types of Married customers that  churned  the telecom?
 SELECT 
         CASE WHEN  (TC.Married) = 1 THEN 'YES' 
 		ELSE 'NO' 
@@ -256,7 +268,7 @@ ON TC.Zip_Code = TZP.Zip_Code
 WHERE TC.Customer_Status = 'Churned'
 GROUP BY TC.Married;
 
- --18. To view the number of customers that are married
+ -- To view the number of customers that are married
 SELECT  
 CASE 
 WHEN  (TC.Married) = 1 THEN 'YES' 
@@ -269,7 +281,7 @@ ON TC.Zip_Code = TZP.Zip_Code
 WHERE TC.Married IS NOT NULL
 GROUP BY TC.Married;
 
---20. To view the number of customers by the  internet Service
+-- To view the number of customers by the  internet Service
 SELECT 
 CASE WHEN  (TC.Internet_Service) = 1 THEN 'YES'
 ELSE 'NO'
@@ -281,9 +293,7 @@ ON TC.Zip_Code = TZP.Zip_Code
 GROUP BY TC.Internet_Service;
 
 
-
-
--- 21. View the no of churned customer  by Internet service  whose tenure in month is more than 12 months ?
+--  View the no of churned customer  by Internet service  whose tenure in month is more than 12 months ?
 
 SELECT 
 CASE WHEN  (TC.Internet_Service) = 1 THEN 'YES' 
@@ -300,7 +310,8 @@ GROUP BY TC.Internet_Service;
 
 -- whats the average monthlycharge of customers with internet service?
 
-select AVG(TC.Monthly_Charge) as Avg_Month_Charge,
+select
+ AVG(TC.Monthly_Charge) as Avg_Month_Charge,
 CASE WHEN  (TC.Internet_Service) = 1 THEN 'YES' ELSE 'NO' END AS Internet_Service
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
