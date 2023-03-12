@@ -36,15 +36,15 @@ ON TC.Zip_Code = TZP.Zip_Code
 GROUP BY TC.Gender;
 
 -- To view married customer  that churned the telecom?
-SELECT
-CASE 
-WHEN  (TC.Married) = 1 THEN 'YES' ELSE 'NO' END AS Married,
-		COUNT(DISTINCT TC.Customer_ID) AS number_of_Customer
+SELECT COUNT(DISTINCT TC.Customer_ID) AS number_of_Customer,
+CASE WHEN  (TC.Married) = 1 THEN 'YES' ELSE 'NO' END AS Married
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code
 WHERE  TC.Customer_Status = 'Churned' 
 GROUP BY TC.Married ;
+
+
 
 
 -- To view the reason why customers  decide to churned the telecom
@@ -136,7 +136,7 @@ ORDER BY Total_Population DESC;
 
 -- To view the number of customer, city and grand total in descending order
 SELECT TC.City,
-COUNT(TC.Customer_ID) AS No_Customer, 
+		COUNT(TC.Customer_ID) AS No_Customer, 
 SUM(Total_Revenue) AS GrandTotal_Revenue
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
@@ -147,7 +147,7 @@ ORDER BY GrandTotal_Revenue DESC;
 
 -- To view the number of customer, city and grand total in descending order
 SELECT TC.City,
-SUM(TC.Total_Charges) AS GrandTotal_Total_Charges, 
+		SUM(TC.Total_Charges) AS GrandTotal_Total_Charges, 
 SUM(Total_Revenue) AS GrandTotal_Revenue
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
@@ -212,7 +212,7 @@ ORDER BY Total_Average_monthlyDistance DESC;
 
 -- To view the number of customers by contract type
 SELECT TC.Contract, 
-COUNT(DISTINCT TC.Customer_ID) AS number_of_Customer
+        COUNT(DISTINCT TC.Customer_ID) AS number_of_Customer
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code
@@ -220,12 +220,10 @@ WHERE TC.Contract IS NOT NULL
 GROUP BY TC.Contract;
 
  -- To view the number of customers by phone service?
-SELECT 
-CASE
-WHEN  (TC.Phone_Service) = 1 THEN 'YES'
+SELECT COUNT(DISTINCT TC.Customer_ID) AS number_of_Customer,
+CASE WHEN  (TC.Phone_Service) = 1 THEN 'YES'
 ELSE 'NO' 
-END AS Phone_Service,
-COUNT(DISTINCT TC.Customer_ID) AS number_of_Customer
+END AS Phone_Service
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code
@@ -233,12 +231,10 @@ WHERE TC.Phone_Service IS NOT NULL
 GROUP BY TC.Phone_Service;
 
 -- To View  Married customers that  stayed with the telecom?
-SELECT  
-  CASE
-WHEN  (TC.Married) = 1 THEN 'YES' 
+SELECT  COUNT(Customer_Status) AS Number_of_Customer,
+  CASE WHEN  (TC.Married) = 1 THEN 'YES' 
 ELSE 'NO' 
-END AS Married_Stayed,
-COUNT(Customer_Status) AS Number_of_Customer
+END AS Married_Stayed
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code
@@ -246,10 +242,10 @@ WHERE TC.Customer_Status = 'Stayed'
 GROUP BY TC.Married;
 
 -- Types of Married customers that  joined with the telecom?
-SELECT 
-CASE WHEN  (TC.Married) = 1 THEN 'YES' ELSE 'NO'
-END AS Married,
-COUNT(DISTINCT TC.Customer_ID) AS Number_of_Customer
+SELECT  COUNT(DISTINCT TC.Customer_ID) AS Number_of_Customer,
+        CASE WHEN  (TC.Married) = 1 THEN 'YES' 
+		ELSE 'NO'
+		END AS Married
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code
@@ -257,10 +253,10 @@ WHERE TC.Customer_Status = 'joined'
 GROUP BY TC.Married;
 
 -- Types of Married customers that  churned  the telecom?
-SELECT 
-CASE WHEN  (TC.Married) = 1 THEN 'YES' ELSE 'NO' 
-END AS Married,
-COUNT(DISTINCT TC.Customer_ID) AS Number_of_Customer
+SELECT COUNT(DISTINCT TC.Customer_ID) AS Number_of_Customer,
+        CASE WHEN  (TC.Married) = 1 THEN 'YES' 
+		ELSE 'NO' 
+		END AS Married
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code
@@ -268,12 +264,10 @@ WHERE TC.Customer_Status = 'Churned'
 GROUP BY TC.Married;
 
  -- To view the number of customers that are married
-SELECT  
-CASE 
-WHEN  (TC.Married) = 1 THEN 'YES' 
+SELECT  COUNT(DISTINCT TC.Customer_ID) AS number_of_Customer,
+CASE WHEN  (TC.Married) = 1 THEN 'YES' 
 ELSE 'NO'
-END AS Married,
-COUNT(DISTINCT TC.Customer_ID) AS number_of_Customer
+END AS Married
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code
@@ -281,11 +275,10 @@ WHERE TC.Married IS NOT NULL
 GROUP BY TC.Married;
 
 -- To view the number of customers by the  internet Service
-SELECT 
+SELECT COUNT(DISTINCT TC.Customer_ID) AS number_of_Customer,
 CASE WHEN  (TC.Internet_Service) = 1 THEN 'YES'
 ELSE 'NO'
-END AS Internet_Service,
-COUNT(DISTINCT TC.Customer_ID) AS number_of_Customer
+END AS Internet_Service
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code 
@@ -294,11 +287,10 @@ GROUP BY TC.Internet_Service;
 
 --  View the no of churned customer  by Internet service  whose tenure in month is more than 12 months ?
 
-SELECT 
+SELECT count(TC.Internet_Service) as Internet_Service_Count,
 CASE WHEN  (TC.Internet_Service) = 1 THEN 'YES' 
 ELSE 'NO'
-END AS Internet_Service,
-count(TC.Internet_Service) as Internet_Service_Count
+END AS Internet_Service
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code 
@@ -310,7 +302,7 @@ GROUP BY TC.Internet_Service;
 -- what is the average monthlycharge of customers with internet service?
 
 select
-AVG(TC.Monthly_Charge) as Avg_Month_Charge,
+ AVG(TC.Monthly_Charge) as Avg_Month_Charge,
 CASE WHEN  (TC.Internet_Service) = 1 THEN 'YES' ELSE 'NO' END AS Internet_Service
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
@@ -328,11 +320,10 @@ GROUP BY TC.Internet_Type;
 
 -- To view if paperless billing has effect on churned customers?
 
-select 
+select count(TC.Customer_Status) As N0_of_Churned_Customer ,
 CASE WHEN  (TC.Paperless_Billing) = 1 THEN 'YES'
 ELSE 'NO' 
-END AS Paperless_Billing,
-count(TC.Customer_Status) As N0_of_Churned_Customer 
+END AS Paperless_Billing
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code 
@@ -342,11 +333,10 @@ GROUP BY TC.Customer_Status,TC.Paperless_Billing;
 
 -- To view customer by paperless billing?
 
-select 
+select COUNT (TC.Paperless_Billing) As Count_Paperless_Billing,
 CASE WHEN  (TC.Paperless_Billing) = 1 THEN 'YES'
 ELSE 'NO' 
-END AS Paperless_Billing,
-count(TC.Paperless_Billing) As Count_Paperless_Billing
+END AS Paperless_Billing
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code 
@@ -363,12 +353,10 @@ ORDER BY TC.Payment_Method DESC;
 
 
 --To view muliple lines of customers?
-SELECT
-CASE 
-WHEN  (TC.Multiple_Lines) = 1 THEN 'YES'
+SELECT 	COUNT(Multiple_Lines) AS Count_Multiple_Line,
+CASE WHEN  (TC.Multiple_Lines) = 1 THEN 'YES'
 ELSE 'NO' 
-END AS Multiple_Lines,
-COUNT(Multiple_Lines) AS Count_Multiple_Line
+END AS Multiple_Lines
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code
@@ -376,11 +364,10 @@ WHERE Multiple_Lines IS NOT NULL
 GROUP BY Multiple_Lines ;
 
 --To view online security customers?
-SELECT CASE 
-WHEN  (TC.Online_Security) = 1 THEN 'YES'
+SELECT COUNT(DISTINCT TC.Customer_ID) AS Count,
+CASE WHEN  (TC.Online_Security) = 1 THEN 'YES'
 ELSE 'NO' 
-END AS Online_Security, 
-COUNT(DISTINCT TC.Customer_ID) AS Count
+END AS Online_Security
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code
@@ -389,12 +376,10 @@ GROUP BY Online_Security ;
 
 
 --To view the online backup customers?
-SELECT 
-CASE 
-WHEN  (TC.Online_Backup) = 1 THEN 'YES'
+SELECT COUNT(Online_Backup) AS Count_Online_Backup,
+CASE WHEN  (TC.Online_Backup) = 1 THEN 'YES'
 ELSE 'NO' 
-END AS Online_Backup,
-COUNT(Online_Backup) AS Count_Online_Backup
+END AS Online_Backup
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code
@@ -403,12 +388,11 @@ GROUP BY Online_Backup;
 
 
 --To view the Device protection plan?
-SELECT 
+SELECT COUNT(DISTINCT TC.Customer_ID) AS Count_Device_ProtectionPlan,
 CASE 
 WHEN  (TC.Device_Protection_Plan) = 1 THEN 'YES'
 ELSE 'NO' 
-END AS Device_Protection_Plan, 
-COUNT(DISTINCT TC.Customer_ID) AS Count_Device_ProtectionPlan
+END AS Device_Protection_Plan
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code
@@ -416,11 +400,10 @@ WHERE Device_Protection_Plan IS NOT NULL
 GROUP BY Device_Protection_Plan ;
 
 --To view the unlimied data of customers
-SELECT CASE 
-WHEN  (TC.Unlimited_Data) = 1 THEN 'YES'
+SELECT COUNT(DISTINCT TC.Customer_ID) AS Count_Unlimited_Data,
+CASE WHEN  (TC.Unlimited_Data) = 1 THEN 'YES'
 ELSE 'NO' 
-END AS Unlimited_Data, 
-COUNT(DISTINCT TC.Customer_ID) AS Count_Unlimited_Data
+END AS Unlimited_Data
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code
@@ -428,11 +411,10 @@ WHERE  Unlimited_Data IS NOT NULL
 GROUP BY Unlimited_Data ;
 
 --To view the tech support of customers?
-SELECT CASE 
-WHEN  (TC.Premium_Tech_Support) = 1 THEN 'YES'
+SELECT 	COUNT(DISTINCT TC.Customer_ID) AS Count_Premium_TechSupport,
+CASE WHEN  (TC.Premium_Tech_Support) = 1 THEN 'YES'
 ELSE 'NO' 
-END AS Premium_Tech_Support, 
-COUNT(DISTINCT TC.Customer_ID) AS Count_Premium_TechSupport
+END AS Premium_Tech_Support
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code
@@ -440,11 +422,10 @@ WHERE  Premium_Tech_Support IS NOT NULL
 GROUP BY Premium_Tech_Support ;
 
 --To view the streaming TV of customers?
-SELECT CASE 
-WHEN  (TC.Streaming_TV) = 1 THEN 'YES'
+SELECT COUNT(DISTINCT TC.Customer_ID) AS Count_Streaming_TV,
+CASE WHEN  (TC.Streaming_TV) = 1 THEN 'YES'
 ELSE 'NO' 
-END AS Streaming_TV,
-COUNT(DISTINCT TC.Customer_ID) AS Count_Streaming_TV
+END AS Streaming_TV
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code
@@ -452,11 +433,10 @@ WHERE Streaming_TV IS NOT NULL
 GROUP BY Streaming_TV;
 
 --To view the streaming music of  customers?
-SELECT CASE 
-WHEN  (TC.Streaming_Music) = 1 THEN 'YES'
+SELECT COUNT(DISTINCT TC.Customer_ID) AS Count_Streaming_Music,
+CASE WHEN  (TC.Streaming_Music) = 1 THEN 'YES'
 ELSE 'NO' 
-END AS Streaming_Music,
-COUNT(DISTINCT TC.Customer_ID) AS Count_Streaming_Music
+END AS Streaming_Music
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code
@@ -464,11 +444,11 @@ WHERE Streaming_Music IS NOT NULL
 GROUP BY Streaming_Music ;
 
 --To view the streaming movies of  customers?
-SELECT CASE 
+SELECT COUNT(DISTINCT TC.Customer_ID) AS Count_Streaming_Movies,
+CASE 
 WHEN  (TC.Streaming_Movies) = 1 THEN 'YES'
 ELSE 'NO' 
-END AS Streaming_Movies,
-COUNT(DISTINCT TC.Customer_ID) AS Count_Streaming_Movies
+END AS Streaming_Movies
 FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code
@@ -476,13 +456,19 @@ WHERE Streaming_Movies IS NOT NULL
 GROUP BY Streaming_Movies ;
 
 
---- To calcualte the Avg Tenure in Months of Customers?
+--- To calcualte the Avg Tenure in Months?
 SELECT 
  AVG(TC.Tenure_in_Months) As AVG_Tenure_Month
  FROM telecom_customer TC
 INNER JOIN telecom_zipcode_population TZP 
 ON TC.Zip_Code = TZP.Zip_Code;
 
+/*SELECT 
+ SUM(TC.Tenure_in_Months) As AVG_Tenure_Month
+ FROM telecom_customer TC
+INNER JOIN telecom_zipcode_population TZP 
+ON TC.Zip_Code = TZP.Zip_Code;
+*/
 
 -- To calcualte the Tenure in Months of Customers?
 SELECT  TC.Customer_Status AS Customer_Status,
@@ -536,6 +522,7 @@ WHERE TC.Contract IS NOT NULL AND Customer_Status = 'Churned'
 GROUP BY TC.Contract; 
 
 
+
 --To view the number  of Churned customer  by offer?
 SELECT TC.Offer, 
         COUNT(DISTINCT TC.Customer_ID) AS number_of_Customer
@@ -544,6 +531,7 @@ INNER JOIN telecom_zipcode_population TZP
 ON TC.Zip_Code = TZP.Zip_Code
 WHERE TC.Contract IS NOT NULL AND Customer_Status = 'Churned'
 GROUP BY TC.Offer; 
+
 
 
 --To view the customer status by Age?
@@ -563,6 +551,10 @@ ON TC.Zip_Code = TZP.Zip_Code
 GROUP BY TC.Customer_Status, Age
 
 
+
+
+
+
 --To view the number of referrals?
 select  Customer_Status,
 SUM(Number_of_Referrals) AS Total_Referrals
@@ -571,4 +563,3 @@ INNER JOIN telecom_zipcode_population TZP
 ON TC.Zip_Code = TZP.Zip_Code 
 GROUP BY Customer_Status
 ORDER BY Customer_Status DESC;
-
